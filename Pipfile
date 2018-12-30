@@ -10,5 +10,5 @@ loguru = "*"
 
 [dev-packages]
 
-[requires]
-python_version = "3.7"
+[scripts]
+migrate = "python mirror.py"
