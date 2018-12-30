@@ -15,7 +15,7 @@ pipenv install --deploy
 
 | Environment Variable | Description                               | Example                  |
 |----------------------|-------------------------------------------|--------------------------|
-| GITEA_URL            | The URL of your Gitea Instance            | https://teahub.com       |
+| GITEA_URL            | The URL of your Gitea Instance            | `https://your-gitea-url` |
 | GITEA_TOKEN          | The access token you generate for Gitea   | rgjkrehg4289th894hgrueig |
 | GITHUB_TOKEN         | GitHub access token with repo scope       | reiugnu834g8h48gw8g838gr |
 | MIRROR_ORG           | The name of the organization to mirror to | mirror                   |
