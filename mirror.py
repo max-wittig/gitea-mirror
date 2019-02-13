@@ -36,14 +36,15 @@ def main():
     }
 
     gh = github.Github(github_token)
-    repos = gh.get_user().get_repos(affiliation="owner")
+    repos = gh.get_user().get_repos(affiliation="owner", visibility="public")
     org_id = json.loads(requests.get(
         f"{gitea_api_url}/orgs/{mirror_org}",
         headers=headers
     ).text)["id"]
 
     for repo in repos:
-        migrate(repo, headers, org_id)
+        if not repo.fork:
+            migrate(repo, headers, org_id)
 
 
 if __name__ == "__main__":
