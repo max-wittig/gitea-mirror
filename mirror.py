@@ -2,6 +2,7 @@ import requests
 import os
 import github
 import json
+import sys
 from loguru import logger
 
 
@@ -28,6 +29,7 @@ def migrate(repo, headers, org_id):
     else:
         logger.error(f"Could not create {repo.name}. Skipping.")
 
+
 def main():
     headers = {
         "accept": "application/json",
@@ -37,10 +39,9 @@ def main():
 
     gh = github.Github(github_token)
     repos = gh.get_user().get_repos(affiliation="owner", visibility="public")
-    org_id = json.loads(requests.get(
-        f"{gitea_api_url}/orgs/{mirror_org}",
-        headers=headers
-    ).text)["id"]
+    org_id = json.loads(
+        requests.get(f"{gitea_api_url}/orgs/{mirror_org}", headers=headers).text
+    )["id"]
 
     for repo in repos:
         if not repo.fork:
@@ -48,4 +49,8 @@ def main():
 
 
 if __name__ == "__main__":
+    required_vars = ["GITEA_URL", "GITEA_TOKEN", "GITHUB_TOKEN", "MIRROR_ORG"]
+    for var in required_vars:
+        if not os.getenv(var):
+            sys.exit(f"Required environment variables: {', '.join(required_vars)}")
     main()
