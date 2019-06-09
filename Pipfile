@@ -11,4 +11,4 @@ loguru = "*"
 [dev-packages]
 
 [scripts]
-migrate = "python mirror.py"
+migrate = "python3 mirror.py"
